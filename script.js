@@ -4,7 +4,7 @@ const chatbox = document.querySelector(".chatbox");
 
 
 let userMessage;
-const API_KEY = "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";
+const API_KEY = "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";
 
 const  createChatLi = (message, className) => {
     //create a chat <li> element with a passed message and className
@@ -16,8 +16,9 @@ const  createChatLi = (message, className) => {
 
 }
 
-const generateResponse = () => {
+const generateResponse = (incomingChatLi) => {
     const API_URL = "https://api.openai.com/v1/chat/completions";
+    messageElement = incomingChatLi.querySelector("p");
 
    //Define the properties and message for the API request
     const requestOptions = {
@@ -34,9 +35,9 @@ const generateResponse = () => {
 
 //Send the request to the API, GET RESPONSE
 fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
-    console.log(data);
+    messageElement.textContent = data.choices[0].message.content;
 }).catch((error) =>  {
-    console.log(error);
+    messageElement.textContent = "OOps something went wrong. Please try again";
 })
 }
 const handleChat = () => {
@@ -49,8 +50,10 @@ const handleChat = () => {
     setTimeout(() => {
 
         //displays the "thinking" massage while waiting for response message
-        chatbox.appendChild(createChatLi("Thinking...", "incoming"));	
-        generateResponse();
+
+        const incomingChatLi = createChatLi("Thinking...", "incoming");
+        chatbox.appendChild(incomingChatLi);	
+        generateResponse(incomingChatLi);
     }, 600);
 }
 
