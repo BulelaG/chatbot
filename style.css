@@ -22,9 +22,17 @@
 }
 .heading{
     font-size: 60px;
-    color: white;
-    padding-left: 300px;
+    color: rgb(7, 107, 189) ;
+    padding-left: 280px;
 }
+.hero-message{
+    font-size: 25px;
+    color: white;
+    padding: 70px 480px 0 150px;
+
+}
+
+
 .chatbot-toggler{
     position: fixed;
     right: 40px;
