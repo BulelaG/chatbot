@@ -10,13 +10,15 @@
   position: fixed;
   left: 0;
   bottom: 0;
-  text-decoration: none;
   width: 100%;
   background-color: rgb(131, 131, 131);
   color: white;
   text-align: center;
 }
-
+a{
+    text-decoration: none;
+    color:yellow ;
+}
 #body{
     background-color: rgb(0, 0, 0);
 }
@@ -30,6 +32,10 @@
     color: white;
     padding: 70px 480px 0 150px;
 
+}
+.img{
+padding-top:4% ;
+padding-left: 30%;
 }
 
 
