@@ -30,29 +30,33 @@ const generateResponse = (incomingChatLi) => {
         body: JSON.stringify({
             model: "gpt-3.5-turbo",
             messages: [{role: "user", content:userMessage}]
-    })
+      })
+    }
+
+       //Send the request to the API, GET RESPONSE
+       fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
+       messageElement.textContent = data.choices[0].message.content;
+       }).catch((error) =>  {
+         messageElement.textContent = "Oops something went wrong. Please try again";
+       }).finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
+
 }
 
-//Send the request to the API, GET RESPONSE
-fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
-    messageElement.textContent = data.choices[0].message.content;
-}).catch((error) =>  {
-    messageElement.textContent = "OOps something went wrong. Please try again";
-})
-}
 const handleChat = () => {
     userMessage  = chatInput.value.trim();
     if (!userMessage) return;
       
     //Append the user's message to the chatbox
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));	
+    chatbox.scrollTo(0, chatbox.scrollHeight);
 
     setTimeout(() => {
 
         //displays the "thinking" massage while waiting for response message
 
         const incomingChatLi = createChatLi("Thinking...", "incoming");
-        chatbox.appendChild(incomingChatLi);	
+        chatbox.appendChild(incomingChatLi);
+        chatbox.scrollTo(0, chatbox.scrollHeight);	
         generateResponse(incomingChatLi);
     }, 600);
 }
