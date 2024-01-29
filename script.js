@@ -4,14 +4,16 @@ const chatbox = document.querySelector(".chatbox");
 
 
 let userMessage;
-const API_KEY = "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";
+const API_KEY = "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";
+const inputInitHeight = chatInput.scrollHeight
 
 const  createChatLi = (message, className) => {
     //create a chat <li> element with a passed message and className
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", className);
-    let chatContent = className === "outgoing" ?`<p>${message}.</p>` :`<span class="material-symbols-outlined">smart_toy</span><p>${message}.</p>`;
+    let chatContent = className === "outgoing" ?`<p></p>` :`<span class="material-symbols-outlined">smart_toy</span><p></p>`;
     chatLi.innerHTML = chatContent;
+    chatLi.querySelector("p").textContent = message;
     return chatLi;
 
 }
@@ -37,6 +39,7 @@ const generateResponse = (incomingChatLi) => {
        fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
        messageElement.textContent = data.choices[0].message.content;
        }).catch((error) =>  {
+         messageElement.classList.add("error");
          messageElement.textContent = "Oops something went wrong. Please try again";
        }).finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
 
@@ -45,21 +48,41 @@ const generateResponse = (incomingChatLi) => {
 const handleChat = () => {
     userMessage  = chatInput.value.trim();
     if (!userMessage) return;
+    chatInput.value = ""; 
+    chatInput.style.height = `${inputInitHeight}px`;
+    
       
     //Append the user's message to the chatbox
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));	
     chatbox.scrollTo(0, chatbox.scrollHeight);
 
     setTimeout(() => {
-
         //displays the "thinking" massage while waiting for response message
-
+        
         const incomingChatLi = createChatLi("Thinking...", "incoming");
         chatbox.appendChild(incomingChatLi);
         chatbox.scrollTo(0, chatbox.scrollHeight);	
         generateResponse(incomingChatLi);
     }, 600);
 }
+
+chatInput.addEventListener("input", () => {
+    // Adjusting the height of the input textarea based on its content 
+    chatInput.style.height = `${inputInitHeight}px`;
+    chatInput.style.height = `${chatInput.scrollHeight}px`;
+
+})
+
+chatInput.addEventListener("keydown", (e) => {
+    //If enter key is pressed without  Shift key and the window 
+    // width is greater than 800px, handle the chat
+   if(e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+      e.preventDefault()
+      handleChat();
+   }
+
+})
+
 
 
 sendChatBtn.addEventListener("click", handleChat);
