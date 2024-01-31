@@ -25,12 +25,12 @@ a{
 .heading{
     font-size: 60px;
     color: rgb(7, 107, 189) ;
-    padding-left: 280px;
+    padding-left: 19%;
 }
 .hero-message{
     font-size: 25px;
     color: white;
-    padding: 70px 480px 0 150px;
+    padding: 4% 33% 0 10%;
 
 }
 .img{
@@ -88,7 +88,7 @@ padding-left: 30%;
     pointer-events: auto;
 }
 .chatbot header{
-    background: rgb(7, 107, 189);
+    background: rgb(0, 63, 199);
     padding: 16px 0;
     text-align: center;
 }
@@ -199,6 +199,15 @@ padding-left: 30%;
     }
     .chatbot header span{
         display: block;
+    }
+
+    .mobi-flex{
+        display: flex;
+
+    }
+
+    .mobi-flex{
+        display: flex;
     }
 
 }
