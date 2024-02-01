@@ -147,8 +147,8 @@ padding-left: 30%;
 }
 
 .chatbox .incoming p{
-    color: black;
-    background: rgb(218, 215, 215);
+    color: rgb(225, 225, 225); 
+    background-color: #545456;
     border-radius: 10px 10px 10px 0;
 }
 .chatbot .chat-input{
