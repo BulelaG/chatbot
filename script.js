@@ -8,7 +8,7 @@ const API_KEY = "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";
 const inputInitHeight = chatInput.scrollHeight
 
 const  createChatLi = (message, className) => {
-    //create a chat <li> element with a passed message and className
+    //creates a chat <li> element with a passed message and className
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", className);
     let chatContent = className === "outgoing" ?`<p></p>` :`<span class="material-symbols-outlined">smart_toy</span><p></p>`;
@@ -22,7 +22,7 @@ const generateResponse = (incomingChatLi) => {
     const API_URL = "https://api.openai.com/v1/chat/completions";
     messageElement = incomingChatLi.querySelector("p");
 
-   //Define the properties and message for the API request
+   //Defines the properties and message for the API request
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -35,7 +35,7 @@ const generateResponse = (incomingChatLi) => {
       })
     }
 
-       //Send the request to the API, GET RESPONSE
+       //Sends the request to the API, GET RESPONSE
        fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
        messageElement.textContent = data.choices[0].message.content;
        }).catch((error) =>  {
@@ -52,7 +52,7 @@ const handleChat = () => {
     chatInput.style.height = `${inputInitHeight}px`;
     
       
-    //Append the user's message to the chatbox
+    //Appends the user's message to the chatbox
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));	
     chatbox.scrollTo(0, chatbox.scrollHeight);
 
@@ -67,7 +67,7 @@ const handleChat = () => {
 }
 
 chatInput.addEventListener("input", () => {
-    // Adjusting the height of the input textarea based on its content 
+    // Adjusts the height of the input textarea based on its content 
     chatInput.style.height = `${inputInitHeight}px`;
     chatInput.style.height = `${chatInput.scrollHeight}px`;
 
@@ -75,7 +75,7 @@ chatInput.addEventListener("input", () => {
 
 chatInput.addEventListener("keydown", (e) => {
     //If enter key is pressed without  Shift key and the window 
-    // width is greater than 800px, handle the chat
+    // width is greater than 800px, handles the chat
    if(e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
       e.preventDefault()
       handleChat();
